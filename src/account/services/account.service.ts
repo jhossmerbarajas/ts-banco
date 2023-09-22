@@ -84,4 +84,13 @@ export class AccountService
 		return updateSaldo
 	}
 
+	async updateStatusAccount (n_account: number, account: AccountDTO): Promise<UpdateResult> {
+		return await this.repository.getRepository(AccountEntity)
+									.createQueryBuilder('account')
+									.where("n_account = :n_account", { n_account })
+									.update(AccountEntity)
+									.set({ status: account.status })
+									.execute()
+	}
+
 }

@@ -21,5 +21,12 @@ export class AccountRouter extends BaseRouter<AccountController, AccountMiddlewa
 			this.middleware.passAuth('jwt'),
 			(req, res) => this.controller.updateSaldoAccountController(req, res)
 		)
+
+		this.router.patch(
+			'/statusAccount/:id',
+			this.middleware.passAuth('jwt'),
+			(req, res, next) => this.middleware.checkAdmin(req, res, next),
+			(req, res) => this.controller.updateStatusAccountController(req, res)
+		)
 	}
 }

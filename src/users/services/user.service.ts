@@ -56,6 +56,15 @@ export class UserService
 						.update(id, data)
 	}
 
+	async updateStatusUser (id: number, user: UserDTO): Promise<UpdateResult> {
+		return await this.repository.getRepository(UserEntity)
+									.createQueryBuilder('account')
+									.where("id = :id", { id })
+									.update(UserEntity)
+									.set({ status: user.status })
+									.execute()
+	}
+
 	async deleteUserService (id: number): Promise<DeleteResult> {
 		return await AppDataSource
 						.getRepository(UserEntity)

@@ -29,7 +29,6 @@ export class SharedMiddleware
 	checkAdmin(req: Request, res: Response, next: NextFunction) {
 
 		const user = req.user as UserEntity
-		console.log(user.role)
 		if(user.role !== RoleType.ADMIN) {
 			return this.httpResponse.Unauthorized(res, 'No tiene permiso')
 		}

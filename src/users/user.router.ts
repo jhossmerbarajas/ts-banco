@@ -33,6 +33,13 @@ export class UserRouter extends BaseRouter <UserController, UserMiddleware>
 			(req, res) => this.controller.update(req,res)
 		)
 
+		this.router.patch(
+			'/statusUser/:id',
+			this.middleware.passAuth('jwt'),
+			(req, res, next) => this.middleware.checkAdmin(req, res, next),
+			(req, res) => this.controller.updateStatusUserController(req, res)
+		)
+
 		this.router.delete(
 			'/users/:id',
 			this.middleware.passAuth('jwt'),

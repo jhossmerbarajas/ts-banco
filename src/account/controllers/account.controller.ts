@@ -34,4 +34,18 @@ export class AccountController
 			return this.httpResponse.NotFound(res, e)
 		}
 	}
+
+	async updateStatusAccountController (req: Request, res: Response) {
+		try {
+			const n_account = Number(req.params.id)
+
+			const status = await this.accountService.updateStatusAccount(n_account, req.body)
+			if(!status.affected) return this.httpResponse.Error(res, 'No Se actualizó el estado de la cuenta')
+
+			return this.httpResponse.Ok(res, status)
+		} catch (e) {
+			console.error(e)
+			return this.httpResponse.NotFound(res, e)
+		}
+	}
 }

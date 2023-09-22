@@ -46,10 +46,24 @@ export class UserController
 		try {
 			const idUser = req.params.id
 			const id = Number(idUser)
-			console.log(id)
+			
 			const updateUser = await this.userService.updateUserService(id, req.body)
 		} catch (e) {
 			console.error(e)
+		}
+	}
+
+	async updateStatusUserController (req: Request, res: Response) {
+		try {
+			const id = Number(req.params.id)
+
+			const status = await this.userService.updateStatusUser(id, req.body)
+			if(!status.affected) return this.httpResponse.Error(res, 'No Se actualizó el estado del usuario')
+
+			return this.httpResponse.Ok(res, status)
+		} catch (e) {
+			console.error(e)
+			return this.httpResponse.NotFound(res, e)
 		}
 	}
 
