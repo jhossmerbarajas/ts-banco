@@ -11,7 +11,7 @@ export class UserRouter extends BaseRouter <UserController, UserMiddleware>
 	routes() {
 		this.router.get(
 			'/users',
-			// this.middleware.passAuth('jwt'),
+			this.middleware.passAuth('jwt'),
 			(req, res) => this.controller.index(req, res)
 		)
 
