@@ -29,18 +29,16 @@ export class AccountService
 		return number[0]
 	}
 
-	// private async getNumberAccount (id: number) {
-	// 	return await this.repository.getRepository(AccountEntity)
-	// 								.createQueryBuilder('account')
-	// 								.leftJoinAndSelect("account.user_id", "user")
-	// 								.where("user.id = :user_id", { user_id: id})
-	// 								.select("account.saldo")
-	// 								.getOne()
-	// }
-
 	async getAccountService (): Promise<AccountEntity[]> {
-
 		return await this.repository.getRepository(AccountEntity).find()
+	}
+
+	async getAccountWithUser (id: number) {
+		return await this.repository.getRepository(AccountEntity)
+						.createQueryBuilder('account')
+						.leftJoinAndSelect('account.user_id', 'user')
+						.where({ id })
+						.getMany()
 	}
 
 	async createAccountService ( data: AccountDTO): Promise<AccountEntity> {
@@ -70,18 +68,19 @@ export class AccountService
 									.getOne()
 	}
 
-	async updateSaldoAccountService (id: number, saldo: number): Promise<UpdateResult> {
+	async updateSaldoAccountService (id: number, account: AccountDTO): Promise<UpdateResult> {
 		
 		const getSaldo = await this.getSaldoAccount(id)
-		const newSaldo = saldo + Number(getSaldo!.saldo )
+		const newSaldo = account.saldo + Number(getSaldo!.saldo )
 		const updateSaldo = await this.repository.getRepository(AccountEntity)
 												.createQueryBuilder("account")
 												.leftJoinAndSelect("account.user_id", "user")
 												.where("user_id = :user_id", { user_id: id })
+												.andWhere("n_account = :n_account", { n_account: account.n_account })
 												.update(AccountEntity)
 												.set({ saldo: newSaldo })
 												.execute()
-		console.log(`${updateSaldo}`)
+		
 		return updateSaldo
 	}
 

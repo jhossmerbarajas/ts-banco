@@ -11,10 +11,21 @@ export class UserDTO
 
 	@IsNotEmpty()
 	pass!: string
+
+	@IsNotEmpty()
+	role!: RoleType
+
+	@IsNotEmpty()
+	status!: StatusUser
 }
 
 export enum RoleType {
 	ADMIN = "ADMIN",
 	CLIENT = "CLIENT",
 	EMPLOY = "EMPLOY"
+}
+
+export enum StatusUser {
+	ACTIVE = "ACTIVE",
+	DESACTIVE = "DESACTIVE"
 }

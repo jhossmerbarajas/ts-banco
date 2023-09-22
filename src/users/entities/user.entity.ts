@@ -2,7 +2,7 @@ import { Column, Entity, OneToMany, OneToOne } from 'typeorm'
 
 import { BaseEntity } from '../../config/base.entity'
 import { AccountEntity } from '../../account/entities/account.entity'
-import { RoleType } from '../dto/user.dto'
+import { RoleType, StatusUser } from '../dto/user.dto'
 
 @Entity({ name: "user" })
 export class UserEntity extends BaseEntity
@@ -30,6 +30,12 @@ export class UserEntity extends BaseEntity
 		enum: RoleType
 	})
 	role!: RoleType
+
+	@Column({
+		type: "enum",
+		enum: StatusUser
+	})
+	status!: StatusUser
 
 	@OneToMany( () => AccountEntity, (account) => account.user_id )
 	account!: AccountEntity[]

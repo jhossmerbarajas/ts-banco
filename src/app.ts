@@ -1,5 +1,6 @@
 import express, { Application } from 'express'
 import morgan from 'morgan'
+import cors from 'cors'
 import { DataSource } from 'typeorm'
 
 //BD
@@ -38,6 +39,7 @@ export class AppServer extends ConfigBD
 	}
 
 	private middleware () {
+		this.app.use(cors())
 		this.app.use(express.urlencoded({ extended: true }))
 		this.app.use(express.json())
 		this.app.use(express.static(__dirname + '/../public'))

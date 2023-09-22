@@ -1,10 +1,13 @@
 import { Request, Response } from 'express'
 import { UserService } from '../services/user.service'
 
+import { HttpResponse } from '../../libs/response/http.response'
+
 export class UserController 
 {
 	constructor(
-		private userService: UserService = new UserService
+		private userService: UserService = new UserService,
+		private readonly httpResponse: HttpResponse = new HttpResponse
 	) {}
 
 	async index (req: Request, res: Response) {
@@ -13,6 +16,20 @@ export class UserController
 			return res.json(allUsers)
 		} catch (e) {
 			console.error(e)
+		}
+	}
+
+	async getUserWithAccountController (req: Request, res: Response) {
+		try {
+			const id = Number(req.params.id)
+			const userAccount = await this.userService.getUserWithAccount(id)
+
+			if(!userAccount) return this.httpResponse.Error(res, 'No se encontro el Usuario')
+
+			return this.httpResponse.Ok(res, userAccount)
+		} catch(e) {
+			console.error(e)
+			return this.httpResponse.NotFound(res, e)
 		}
 	}
 

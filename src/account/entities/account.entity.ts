@@ -2,7 +2,7 @@ import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm'
 
 import { BaseEntity } from '../../config/base.entity'
 import { UserEntity } from '../../users/entities/user.entity'
-import { AccountType } from '../dto/account.dto'
+import { AccountType, StatusAccount } from '../dto/account.dto'
 
 
 @Entity({ name: "account" })
@@ -25,6 +25,12 @@ export class AccountEntity extends BaseEntity
 		enum: AccountType
 	})
 	accounttype!: AccountType
+
+	@Column({
+		type: "enum",
+		enum: StatusAccount
+	})
+	status!: StatusAccount
 
 	// Usuario que le asignan la cuenta
 	@ManyToOne( () => UserEntity, (user) => user.account )

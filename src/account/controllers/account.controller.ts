@@ -23,12 +23,9 @@ export class AccountController
 
 	async updateSaldoAccountController (req: Request, res: Response) {
 		try {
-			// const idParams = req.params.id
 			const user_id = Number(req.params.id)
-			const saldo = req.body.saldo
-			console.log(`${user_id} - ${saldo}`)
-			const upSaldo = await this.accountService.updateSaldoAccountService(user_id, saldo)
-
+						
+			const upSaldo = await this.accountService.updateSaldoAccountService(user_id, req.body)
 			if(!upSaldo.affected) return this.httpResponse.Error(res, 'No se actualizó el saldo')
 
 			return this.httpResponse.Ok(res, upSaldo)

@@ -16,6 +16,14 @@ export class UserService
 		return this.repository.getRepository(UserEntity).findOneBy({ id })
 	}
 
+	async getUserWithAccount (id: number) {
+		return await this.repository.getRepository(UserEntity)
+									.createQueryBuilder('user')
+									.leftJoinAndSelect('user.account', 'account')
+									.where({ id })
+									.getMany()
+	}
+
 	async findUserByEmail (email: string): Promise<UserEntity | null> {
 		return this.repository.getRepository(UserEntity)
 									.createQueryBuilder("user")
@@ -23,16 +31,6 @@ export class UserService
 									.where({ email })
 									.getOne()
 	}
-
-	// async findUserWithRole(id: number, role: RoleType): Promise<UserEntity | null> {
-	// 	const user = this.repository.getRepository(UserEntity)
-	// 									.createQueryBuilder('user')
-	// 									.where({ id })
-	// 									.andWhere({ role })
-	// 									.getOne()
-
-	// 	return user;
-	// }
 
 	async findUserWithRole(id: number, role: RoleType): Promise<UserEntity | null> {
 		const user = this.repository.getRepository(UserEntity)

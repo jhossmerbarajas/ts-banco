@@ -15,13 +15,21 @@ export class UserRouter extends BaseRouter <UserController, UserMiddleware>
 			(req, res) => this.controller.index(req, res)
 		)
 
+		this.router.get(
+			'/userwithaccount/:id',
+			this.middleware.passAuth('jwt'),
+			(req, res) => this.controller.getUserWithAccountController(req, res)
+		)
+
 		this.router.post(
 			'/users',
+			(req, res, next) => [this.middleware.checkAdmin(req, res, next)],
 			(req, res) => this.controller.store(req, res)
 		)
 
 		this.router.put(
 			'/users/:id',
+			this.middleware.passAuth('jwt'),
 			(req, res) => this.controller.update(req,res)
 		)
 

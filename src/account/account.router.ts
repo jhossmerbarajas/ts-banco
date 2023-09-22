@@ -17,12 +17,9 @@ export class AccountRouter extends BaseRouter<AccountController, AccountMiddlewa
 		)
 
 		this.router.patch(
-			'/useraccount/:id',
+			'/upsaldo/:id',
+			this.middleware.passAuth('jwt'),
 			(req, res) => this.controller.updateSaldoAccountController(req, res)
 		)
 	}
 }
-// "saldo": 550,
-//    "accounttype": "CORRIENTE",
-//    "user_id": 2,
-//    "user_asing": 4
