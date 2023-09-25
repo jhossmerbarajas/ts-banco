@@ -15,7 +15,7 @@ Uso de migraciones y typeorm para la gestión de datos.
 Tablas relacionadas.
 Instrucciones de uso
 
-Get started
+##Get started
 
 Clona el repositorio:
 git clone https://github.com/jhossmerbarajas/app-banco-typescript.git
