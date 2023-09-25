@@ -38,7 +38,7 @@ DB_PASSWORD: Contraseña de la base de datos.
 ```
 ### 3. Instala las dependencias:
 ```
-** npm install **
+**npm install**
 ```
 ### 4. Inicia el servidor de desarrollo:
 ```
