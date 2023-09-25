@@ -14,15 +14,19 @@ Asignación de cuentas a clientes por admin y employe.
 Uso de migraciones y typeorm para la gestión de datos.
 Tablas relacionadas.
 Instrucciones de uso
-
+```
 #Get started
-
+```
 ###1. Clona el repositorio:
+```
 __git clone https://github.com/jhossmerbarajas/app-banco-typescript.git__
+```
 
 ###2. Configura las variables de entorno:
+```
  **.env**
- 
+ ```
+
 Edita el archivo .env y configura los siguientes valores:
 ```
 **DB_HOST**: Dirección del servidor MySQL.
